@@ -1,0 +1,1 @@
+find_missing_value_columns('c:\\Users\\Admin\\Downloads\\Lab01\\Lab01\\house-prices.csv')
