@@ -32,7 +32,6 @@ def normalize_csv3(filename, attribute_index, method):
             f.write(','.join(fields) + '\n')
             
 
+normalize_csv3(sys.argv[1], int(sys.argv[2]), sys.argv[3])
 
-#normalize_csv3(sys.argv[1], sys.argv[2], sys.argv[3])
-normalize_csv3('output.csv', 0, 'z-score')
 print("Successfull!!")
