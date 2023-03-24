@@ -1,6 +1,5 @@
 import sys
 
-
 def normalize_csv3(filename, attribute_index, method):
     # Read the CSV file and extract the attribute values
     values = []
@@ -15,12 +14,11 @@ def normalize_csv3(filename, attribute_index, method):
         # Min-max normalization: (x - min) / (max - min)
         min_value = min(values)
         max_value = max(values)
-        normalized_values = [
-            (x - min_value) / (max_value - min_value) for x in values]
+        normalized_values = [(x - min_value) / (max_value - min_value) for x in values]
     elif method == 'z-score':
         # Z-score normalization: (x - mean) / std_dev
         mean = sum(values) / len(values)
-        std_dev = (sum([(x - mean) * 2 for x in values]) / len(values)) * 0.5
+        std_dev = (sum([(x - mean) ** 2 for x in values]) / len(values)) ** 0.5
         normalized_values = [(x - mean) / std_dev for x in values]
     else:
         raise ValueError('Unknown normalization method')
@@ -32,7 +30,9 @@ def normalize_csv3(filename, attribute_index, method):
             fields = line.strip().split(',')
             fields[attribute_index] = str(normalized_values[i])
             f.write(','.join(fields) + '\n')
+            
 
 
-normalize_csv3(sys.argv[1], sys.argv[2], sys.argv[3])
+#normalize_csv3(sys.argv[1], sys.argv[2], sys.argv[3])
+normalize_csv3('output.csv', 0, 'z-score')
 print("Successfull!!")
