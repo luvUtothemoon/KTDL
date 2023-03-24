@@ -1,5 +1,6 @@
 import sys
 
+
 def find_missing_values_of_columns(file):
     with open(file, 'r') as f:
         # đọc dữ liệu từ tệp CSV
@@ -15,4 +16,6 @@ def find_missing_values_of_columns(file):
                 missing_value_columns.append(header[i])
 
     return missing_value_columns
-find_missing_values_of_columns(sys.argv[1])
+
+
+print(find_missing_values_of_columns(sys.argv[1]))

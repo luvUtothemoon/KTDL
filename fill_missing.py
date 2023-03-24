@@ -64,3 +64,4 @@ def fill_missing_values(csv_file, method, new_file):
 
 
 fill_missing_values(sys.argv[1], sys.argv[2], sys.argv[3])
+print("Successfull!!")

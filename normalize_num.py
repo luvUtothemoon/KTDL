@@ -35,3 +35,4 @@ def normalize_csv3(filename, attribute_index, method):
 
 
 normalize_csv3(sys.argv[1], sys.argv[2], sys.argv[3])
+print("Successfull!!")

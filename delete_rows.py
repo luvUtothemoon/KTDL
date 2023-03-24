@@ -29,4 +29,5 @@ def delete_rows_with_missing_values1(filename, threshold_pct):
             f.write(','.join(row) + '\n')
 
 
-delete_rows_with_missing_values1(sys.argv[1], sys.argv[2])
+delete_rows_with_missing_values1(sys.argv[1], float(sys.argv[2]))
+print("Successfull!!")

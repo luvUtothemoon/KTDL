@@ -17,4 +17,4 @@ def count_lines_missing_data(_file):
     return num
 
 
-count_lines_missing_data(sys.argv[1])
+print(count_lines_missing_data(sys.argv[1]))

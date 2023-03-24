@@ -29,3 +29,4 @@ def delete_duplicates(file_path):
 
 
 delete_duplicates(sys.argv[1])
+print("Successfull!!")

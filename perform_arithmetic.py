@@ -31,5 +31,4 @@ def perform_arithmetic(filename, attr1_index, attr2_index, operation):
     for result in results:
         print(result)
 
-
-perform_arithmetic(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+print(perform_arithmetic(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4]))
