@@ -6,19 +6,19 @@ def convert_to_number(value):
     else:
         return float(value)
     
-def perform_arithmetic(filename, attr1_index, attr2_index, operation, newFile):
-    # Read the CSV file and extract the attribute values
+def perform_arithmetic(file, attribute1, attribute2, operation, new_file):
+    # Read CSV file
     rows = []
-    with open(filename, 'r') as f:
+    with open(file, 'r') as f:
         for i, line in enumerate(f):
             row = line.strip().split(',')
             rows.append(row)
 
-    # Perform the arithmetic operation on the attributes
+    # Perform operation
     results = []
     for i in range(1, len(rows)):
-        attr1 = convert_to_number(rows[i][attr1_index])
-        attr2 = convert_to_number(rows[i][attr2_index])
+        attr1 = convert_to_number(rows[i][attribute1])
+        attr2 = convert_to_number(rows[i][attribute2])
 
         if operation == '+':
             result = attr1 + attr2
@@ -33,8 +33,8 @@ def perform_arithmetic(filename, attr1_index, attr2_index, operation, newFile):
 
         results.append((result))
 
-    with open(newFile, 'w') as f:
-        # Write the result rows
+    with open(new_file, 'w') as f:
+        # Save the result in result file
         for i, row in enumerate(rows[1:]):
             f.write(str(results[i]) + '\n')
 

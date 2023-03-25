@@ -1,34 +1,31 @@
 import sys
 
 
-def delete_duplicates(file_path, newFile):
-    # Open the Excel file
-    with open(file_path, 'r') as file:
-        # Read the data from the file
+def delete_duplicates(file, new_file):
+    # Open CSV file
+    with open(file, 'r') as file:
         data = file.read()
 
-    # Split the data into rows
+    # Split the data
     rows = data.split('\n')
-
-    # Save the header row
+    # Save the header
     header_row = rows[0]
-
-    # Create a set to store the unique rows
+    # store unique rows into set()
     unique_rows = set()
 
-    # Iterate through the rows starting from the second row (to exclude the header)
+    # Examinate all splited row
     for row in rows[1:]:
         # Check if the row is not empty
         if row:
             # Add the row to the set
             unique_rows.add(row)
 
-    # Join the header row and unique rows back together
+    # Join the header
     unique_data = header_row + '\n' + '\n'.join(unique_rows)
-
-    # Write the unique data back to the file
-    with open(newFile, 'w') as file:
+    # Save the result into the result file
+    with open(new_file, 'w') as file:
         file.write(unique_data)
+
 
 delete_duplicates(sys.argv[1], sys.argv[2])
 print("Successfull!!")
