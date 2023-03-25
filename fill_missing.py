@@ -1,6 +1,5 @@
 import sys
 
-
 def fill_missing_values(csv_file, method, new_file):
     # read CSV file
     with open(csv_file, 'r') as f:

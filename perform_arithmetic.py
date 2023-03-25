@@ -1,5 +1,11 @@
 import sys
 
+def convert_to_number(value):
+    if value is None or value == '':
+        return 0.0
+    else:
+        return float(value)
+    
 def perform_arithmetic(filename, attr1_index, attr2_index, operation, newFile):
     # Read the CSV file and extract the attribute values
     rows = []
@@ -11,8 +17,8 @@ def perform_arithmetic(filename, attr1_index, attr2_index, operation, newFile):
     # Perform the arithmetic operation on the attributes
     results = []
     for i in range(1, len(rows)):
-        attr1 = float(rows[i][attr1_index])
-        attr2 = float(rows[i][attr2_index])
+        attr1 = convert_to_number(rows[i][attr1_index])
+        attr2 = convert_to_number(rows[i][attr2_index])
 
         if operation == '+':
             result = attr1 + attr2

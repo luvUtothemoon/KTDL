@@ -7,7 +7,10 @@ def normalize_csv3(filename, attribute_index, method, newfile):
         lines = f.readlines()
         header = lines[0].strip().split(',')
         for line in lines[1:]:
-            values.append(float(line.strip().split(',')[attribute_index]))
+            value = line.strip().split(',')[attribute_index]
+            if value == '':
+                value = '0'
+            values.append(float(value))
 
     # Normalize the attribute using the chosen method
     if method == 'min-max':
