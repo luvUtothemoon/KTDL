@@ -1,7 +1,7 @@
 import sys
 
 
-def delete_cols_with_missing_values(filename, threshold_pct):
+def delete_cols_with_missing_values(filename, threshold_pct, newfilename):
     # Read the file contents into a list of lists
     with open(filename) as f:
         lines = f.readlines()
@@ -29,10 +29,10 @@ def delete_cols_with_missing_values(filename, threshold_pct):
     filtered_contents = [list(x) for x in zip(*filtered_contents)]
 
     # Write the filtered contents back to the file
-    with open(filename, 'w') as f:
+    with open(newfilename, 'w') as f:
         for row in filtered_contents:
             f.write(','.join(row) + '\n')
 
 
-delete_cols_with_missing_values(sys.argv[1], float(sys.argv[2]))
+delete_cols_with_missing_values(sys.argv[1], float(sys.argv[2]), sys.argv[3])
 print("Successfull!!")

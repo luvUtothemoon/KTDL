@@ -1,7 +1,6 @@
 import sys
 
-
-def delete_rows_with_missing_values1(filename, threshold_pct):
+def delete_rows_with_missing_values(filename, threshold_pct, new_filename):
     # Read the file contents into a list of lists
     with open(filename) as f:
         lines = f.readlines()
@@ -24,10 +23,9 @@ def delete_rows_with_missing_values1(filename, threshold_pct):
             filtered_contents.append(row)
 
     # Write the filtered contents back to the file
-    with open(filename, 'w') as f:
+    with open(new_filename, 'w') as f:
         for row in filtered_contents:
             f.write(','.join(row) + '\n')
 
-
-delete_rows_with_missing_values1(sys.argv[1], float(sys.argv[2]))
+delete_rows_with_missing_values(sys.argv[1], float(sys.argv[2]), sys.argv[3])
 print("Successfull!!")

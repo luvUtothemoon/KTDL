@@ -1,6 +1,5 @@
 import sys
 
-
 def count_lines_missing_data(_file):
     # read CSV file
     with open(_file, 'r') as f:
@@ -15,6 +14,5 @@ def count_lines_missing_data(_file):
             if '' in value:
                 num += 1
     return num
-
 
 print(count_lines_missing_data(sys.argv[1]))

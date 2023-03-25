@@ -1,6 +1,6 @@
 import sys
 
-def normalize_csv3(filename, attribute_index, method):
+def normalize_csv3(filename, attribute_index, method, newfile):
     # Read the CSV file and extract the attribute values
     values = []
     with open(filename, 'r') as f:
@@ -24,14 +24,13 @@ def normalize_csv3(filename, attribute_index, method):
         raise ValueError('Unknown normalization method')
 
     # Write the normalized values back to the CSV file
-    with open(filename, 'w') as f:
+    with open(newfile, 'w') as f:
         f.write(','.join(header) + '\n')  # write the header row unchanged
         for i, line in enumerate(lines[1:]):
             fields = line.strip().split(',')
             fields[attribute_index] = str(normalized_values[i])
             f.write(','.join(fields) + '\n')
             
-
-normalize_csv3(sys.argv[1], int(sys.argv[2]), sys.argv[3])
+normalize_csv3(sys.argv[1], int(sys.argv[2]), sys.argv[3], sys.argv[4])
 
 print("Successfull!!")
