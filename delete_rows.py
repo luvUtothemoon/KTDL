@@ -1,31 +1,29 @@
 import sys
 
-def delete_rows_with_missing_values(filename, threshold_pct, new_filename):
-    # Read the file contents into a list of lists
-    with open(filename) as f:
-        lines = f.readlines()
+def delete_rows_with_missing_values(_file, threshold_pct, new_file):
+    # Read file and save to list
+    with open(_file) as f:
+        rows = f.readlines()
+    a = []
+    for i in rows:
+        a.append(i.strip().split(','))
 
-    contents = []
-    for line in lines:
-        contents.append(line.strip().split(','))
+    # Calculate the threshold number of missing data
+    threshold = int(len(a[0]) * threshold_pct)
 
-    # Determine the number of columns in the sheet
-    num_columns = len(contents[0])
+    # Delete row with missing data exceeding threshold
+    res = []
+    for i in a:
+        missing = i.count('')
+        if missing <= threshold:
+            res.append(i)
 
-    # Calculate the threshold number of missing values
-    threshold = int(num_columns * threshold_pct)
+    # Write data to CSV file
+    with open(new_file, 'w') as f:
+        for i in res:
+            f.write(','.join(i) + '\n')
 
-    # Delete any rows that contain more than the threshold number of missing values
-    filtered_contents = []
-    for row in contents:
-        num_missing = row.count('')
-        if num_missing <= threshold:
-            filtered_contents.append(row)
-
-    # Write the filtered contents back to the file
-    with open(new_filename, 'w') as f:
-        for row in filtered_contents:
-            f.write(','.join(row) + '\n')
+print("Successfull!!")
 
 delete_rows_with_missing_values(sys.argv[1], float(sys.argv[2]), sys.argv[3])
-print("Successfull!!")
+

@@ -1,38 +1,33 @@
 import sys
 
+def delete_cols_with_missing_values(_file, threshold_pct, new_file):
+    # Read file and save to list
+    with open(_file) as f:
+        rows = f.readlines()
+    a = []
+    for i in rows:
+        a.append(i.strip().split(','))
 
-def delete_cols_with_missing_values(filename, threshold_pct, newfilename):
-    # Read the file contents into a list of lists
-    with open(filename) as f:
-        lines = f.readlines()
+    # Calculate the threshold number of missing data
+    threshold = int(len(a) * threshold_pct)
 
-    contents = []
-    for line in lines:
-        contents.append(line.strip().split(','))
-
-    # Determine the number of rows and columns in the sheet
-    num_rows = len(contents)
-    num_cols = len(contents[0])
-
-    # Calculate the threshold number of missing values
-    threshold = int(num_rows * threshold_pct)
-
-    # Delete any columns that contain more than the threshold number of missing values
-    filtered_contents = []
-    for i in range(num_cols):
-        col_data = [row[i] for row in contents]
-        num_missing = col_data.count('')
-        if num_missing <= threshold:
-            filtered_contents.append(col_data)
+    # Delete column with missing data exceeding threshold
+    res = []
+    for i in range(len(a[0])):
+        col = [row[i] for row in a]
+        missing = col.count('')
+        if missing <= threshold:
+            res.append(col)
 
     # Transpose the filtered contents to get the columns back into rows
-    filtered_contents = [list(x) for x in zip(*filtered_contents)]
+    res = [list(x) for x in zip(*res)]
 
-    # Write the filtered contents back to the file
-    with open(newfilename, 'w') as f:
-        for row in filtered_contents:
-            f.write(','.join(row) + '\n')
+    # Write data to CSV file
+    with open(new_file, 'w') as f:
+        for i in res:
+            f.write(','.join(i) + '\n')
 
+print("Successfull!!")
 
 delete_cols_with_missing_values(sys.argv[1], float(sys.argv[2]), sys.argv[3])
-print("Successfull!!")
+

@@ -1,66 +1,66 @@
 import sys
 
-def fill_missing_values(csv_file, method, new_file):
+def fill_missing_values(_file, method, new_file):
     # read CSV file
-    with open(csv_file, 'r') as f:
+    with open(_file, 'r') as f:
         data = [line.strip().split(',') for line in f.readlines()]
 
-    # Tìm các cột là thuộc tính số
-    num_cols = len(data[0])
-    num_attributes = []
-    for col in range(num_cols):
-        if all([row[col].isdigit() or (row[col].startswith('-') and row[col][1:].isdigit()) for row in data[1:]]):
-            num_attributes.append(col)
+    # Find the column are numeric
+    attributes = []
+    cols = len(data[0])
+    for i in range(cols):
+        if all([row[i].isdigit() or (row[i][1:].isdigit() and row[i].startswith('-')) for row in data[1:]]):
+            attributes.append(i)
 
-    # Tính giá trị trung bình hoặc trung vị cho các cột thuộc tính số
-    col_values = {}
-    for col in num_attributes:
-        values = [float(row[col])
-                  for row in data[1:] if row[col].strip() != '']
-        if method == 'mean':
-            col_values[col] = sum(values) / len(values)
-        elif method == 'median':
-            values.sort()
-            n = len(values)
+    # Calculate mean or median for numeric attribute columns
+    val_cols = {}
+    for i in attributes:
+        val = [float(row[i]) for row in data[1:] if row[i].strip() != '']
+        if method == 'median':
+            val.sort()
+            n = len(val)
             if n % 2 == 0:
-                col_values[col] = (values[n // 2 - 1] + values[n // 2]) / 2
+                val_cols[i] = (val[n // 2 - 1] + val[n // 2]) / 2
             else:
-                col_values[col] = values[n // 2]
+                val_cols[i] = val[n // 2]
+        elif method == 'mean':
+            val_cols[i] = sum(val) / len(val)
 
-    # Điền giá trị trung bình hoặc trung vị vào các giá trị trống
-    for row in data[1:]:
-        for col in num_attributes:
-            if row[col].strip() == '':
-                row[col] = str(col_values[col])
+    # Fill in the mean or median in the blanks
+    for i in data[1:]:
+        for j in attributes:
+            if i[j].strip() == '':
+                i[j] = str(val_cols[j])
 
-    with open(csv_file, 'r') as f:
-        rows = []
+    with open(_file, 'r') as f:
+        a = []
         for line in f:
-            rows.append(line.strip().split(','))
+            a.append(line.strip().split(','))
 
-    # Tính mode của các thuộc tính phân loại
-    mode_dict = {}
-    for col in range(len(rows[0])):
-        values = [row[col] for row in rows[1:] if row[col]]
-        if values:
-            mode = max(set(values), key=values.count)
-            mode_dict[col] = mode
+    # Calculate the mode of the categorical attributes
+    mode_cate = {}
+    for i in range(len(a[0])):
+        val = [row[i] for row in a[1:] if row[i]]
+        if val:
+            mode = max(set(val), key=val.count)
+            mode_cate[i] = mode
 
-    # Điền các giá trị thiếu bằng giá trị mode tương ứng
-    for row in rows[1:]:
-        for col in range(len(row)):
-            if not row[col] and col in mode_dict:
-                row[col] = mode_dict[col]
-
-    # Ghi lại dữ liệu vào file CSV
+    # Fill in the missing values with the corresponding mode value
+    for i in a[1:]:
+        for j in range(len(i)):
+            if not i[j] and j in mode_cate:
+                i[j] = mode_cate[j]
+    
+    # Write data to CSV file
     with open(new_file, 'w') as f:
         for row in data:
             f.write(','.join(row) + '\n')
 
     with open(new_file, 'w') as f:
-        for row in rows:
+        for row in a:
             f.write(','.join(row) + '\n')
 
+print("Successfull!!")
 
 fill_missing_values(sys.argv[1], sys.argv[2], sys.argv[3])
-print("Successfull!!")
+
