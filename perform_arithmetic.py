@@ -1,7 +1,6 @@
 import sys
 
-
-def perform_arithmetic(filename, attr1_index, attr2_index, operation):
+def perform_arithmetic(filename, attr1_index, attr2_index, operation, newFile):
     # Read the CSV file and extract the attribute values
     rows = []
     with open(filename, 'r') as f:
@@ -28,7 +27,9 @@ def perform_arithmetic(filename, attr1_index, attr2_index, operation):
 
         results.append((result))
 
-    for result in results:
-        print(result)
+    with open(newFile, 'w') as f:
+        # Write the result rows
+        for i, row in enumerate(rows[1:]):
+            f.write(str(results[i]) + '\n')
 
-print(perform_arithmetic(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4]))
+perform_arithmetic(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4], sys.argv[5])
