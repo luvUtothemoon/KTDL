@@ -1,15 +1,17 @@
 import sys
 
-def convert_to_number(value):
+
+def convertNum(value):
     if value is None or value == '':
         return 0.0
     else:
         return float(value)
-    
-def perform_arithmetic(file, attribute1, attribute2, operation, new_file):
+
+
+def perform_operation(_file, attribute1, attribute2, operation, new_file):
     # Read CSV file
     rows = []
-    with open(file, 'r') as f:
+    with open(_file, 'r') as f:
         for i, line in enumerate(f):
             row = line.strip().split(',')
             rows.append(row)
@@ -17,8 +19,8 @@ def perform_arithmetic(file, attribute1, attribute2, operation, new_file):
     # Perform operation
     results = []
     for i in range(1, len(rows)):
-        attr1 = convert_to_number(rows[i][attribute1])
-        attr2 = convert_to_number(rows[i][attribute2])
+        attr1 = convertNum(rows[i][attribute1])
+        attr2 = convertNum(rows[i][attribute2])
 
         if operation == '+':
             result = attr1 + attr2
@@ -38,4 +40,7 @@ def perform_arithmetic(file, attribute1, attribute2, operation, new_file):
         for i, row in enumerate(rows[1:]):
             f.write(str(results[i]) + '\n')
 
-perform_arithmetic(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4], sys.argv[5])
+
+perform_operation(sys.argv[1], int(sys.argv[2]), int(
+    sys.argv[3]), sys.argv[4], sys.argv[5])
+print("Successfull!!")

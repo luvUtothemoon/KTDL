@@ -23,7 +23,7 @@ def delete_rows_with_missing_values(_file, threshold_pct, new_file):
         for i in res:
             f.write(','.join(i) + '\n')
 
-print("Successfull!!")
 
 delete_rows_with_missing_values(sys.argv[1], float(sys.argv[2]), sys.argv[3])
 
+print("Successfull!!")

@@ -1,10 +1,10 @@
 import sys
 
 
-def delete_duplicates(file, new_file):
+def delete_duplicates(_file, new_file):
     # Open CSV file
-    with open(file, 'r') as file:
-        data = file.read()
+    with open(_file, 'r') as _file:
+        data = _file.read()
 
     # Split the data
     rows = data.split('\n')

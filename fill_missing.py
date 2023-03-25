@@ -1,5 +1,6 @@
 import sys
 
+
 def fill_missing_values(_file, method, new_file):
     # read CSV file
     with open(_file, 'r') as f:
@@ -50,7 +51,7 @@ def fill_missing_values(_file, method, new_file):
         for j in range(len(i)):
             if not i[j] and j in mode_cate:
                 i[j] = mode_cate[j]
-    
+
     # Write data to CSV file
     with open(new_file, 'w') as f:
         for row in data:
@@ -60,7 +61,6 @@ def fill_missing_values(_file, method, new_file):
         for row in a:
             f.write(','.join(row) + '\n')
 
-print("Successfull!!")
 
 fill_missing_values(sys.argv[1], sys.argv[2], sys.argv[3])
-
+print("Successfull!!")

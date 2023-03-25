@@ -1,9 +1,9 @@
 import sys
 
-def normalize(file, attribute, method, new_file):
+def normalize(_file, attribute, method, new_file):
     # Read CSV file
     values = []
-    with open(file, 'r') as f:
+    with open(_file, 'r') as f:
         lines = f.readlines()
         header = lines[0].strip().split(',')
         for line in lines[1:]:
